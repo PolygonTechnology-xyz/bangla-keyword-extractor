@@ -6,7 +6,7 @@ setup(
     name='bangla_keyword_extractor',
     version=__version__,
 
-    url='https://github.com/kabinh07/keyword-extraction',
+    url='https://github.com/PolygonTechnology-xyz/bangla-keyword-extractor',
     author='Kabin Hasan',
     author_email='kanchon@polygontech.xyz',
 
