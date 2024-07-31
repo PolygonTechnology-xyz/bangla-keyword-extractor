@@ -1,4 +1,4 @@
-__version__ = 'dev'
+# __version__ = 'dev'
 
 import re
 from .custom_rake import BanglaRake
