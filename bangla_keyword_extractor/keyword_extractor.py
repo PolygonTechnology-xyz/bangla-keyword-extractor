@@ -13,8 +13,9 @@ class KeywordExractor:
     def __init__(self, input_text_list, stop_words = None):
         self.text_list = input_text_list
         if stop_words is None:
-            with open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"../data/stopwords.txt")) as f:
+            with open(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "stopwords.txt"))) as f:
                 self.stopwords = f.read().split("\n")
+            print(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "stopwords.txt")))
         else:
             self.stopwords = stop_words
         if isinstance(self.text_list, str):
