@@ -12,7 +12,7 @@ nltk.download("punkt")
 nltk.download("stopwords")
 from nltk.corpus import stopwords
 
-class KeywordExractor:
+class KeywordExtractor:
     def __init__(self, input_text_list, stop_words = None, max_keywords = 10, language = "bn"):
         self.text_list = input_text_list
         self.language = language
@@ -61,6 +61,7 @@ class KeywordExractor:
 
     def clean_bn_data(self, text):
         clean_text = re.sub(r"[^\u0980-\u09FF\u09E6-\u09EF\s]", "", text)
+        clean_text = re.sub(r"[০-৯]", "", clean_text)
         clean_text = re.sub(r"\s+", " ", clean_text)
         return clean_text
     
@@ -89,9 +90,6 @@ class KeywordExractor:
             clean_corpus = self.clean_bn_data(self.corpus)
         elif self.language == "en":
             clean_corpus = self.clean_en_data(self.corpus)
-        print(self.corpus)
-        print("======")
-        print(clean_corpus)
         words = self.rake._tokenize_sentence_to_words(clean_corpus)
         words = [word for word in words if not word in self.stopwords]
         unique_words = list(set(words))
