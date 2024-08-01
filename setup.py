@@ -4,7 +4,7 @@ from bangla_keyword_extractor import __version__
 
 setup(
     name='bangla_keyword_extractor',
-    version=__version__,
+    version="0.0.1",
 
     url='https://github.com/PolygonTechnology-xyz/bangla-keyword-extractor',
     author='Kabin Hasan',
