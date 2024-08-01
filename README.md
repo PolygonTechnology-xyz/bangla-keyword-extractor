@@ -3,4 +3,6 @@ This is keyword extractor that support both Bangla and English languages. For th
 
 For using this `bangla-keyword-extractor` library, you need to,
 Install using pip
-```pip install bangla-keyword-extractor```
+```commandline
+pip install bangla-keyword-extractor
+```
