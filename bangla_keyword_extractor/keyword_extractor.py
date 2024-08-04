@@ -79,11 +79,7 @@ class KeywordExtractor:
         for key, value in ranks.items():
             pairs.append((key, value))
         sorted_pairs = sorted(pairs, key = lambda x:x[1], reverse=True)
-        keywords = [pair[0] for pair in sorted_pairs]
-        if len(keywords) < self.max_keywords:
-            return keywords
-        else:
-            return keywords[:self.max_keywords]
+        return sorted_pairs[:self.max_keywords]
     
     def get_keywords_using_pagerank(self):
         if self.language == "bn":
@@ -96,11 +92,7 @@ class KeywordExtractor:
         co_occurrences = self.build_co_occurances(window_size=2, words=words)
         co_occurrences_matrix = self.build_co_occurrences_matrix(unique_words=unique_words, co_occurrences=co_occurrences)
         pagerank_scores = self.get_pagerank_scores(unique_words=unique_words, co_occurrences_matrix=co_occurrences_matrix)
-        keywords = [pair[0] for pair in pagerank_scores]
-        if len(keywords) < self.max_keywords:
-            return keywords
-        else:
-            return keywords[:self.max_keywords]
+        return pagerank_scores[:self.max_keywords]
 
     def build_co_occurances(self, window_size, words):
         window_size = window_size
