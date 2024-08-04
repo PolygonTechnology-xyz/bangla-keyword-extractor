@@ -1,1 +1,1 @@
-from keyword_extractor import KeywordExtractor
+from bangla_keyword_extractor.keyword_extractor import KeywordExtractor
