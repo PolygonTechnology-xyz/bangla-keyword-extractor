@@ -1,11 +1,10 @@
 import re
 from .custom_rake import BanglaRake
 from rake_nltk import Rake
-from sbnltk.Tokenizer import wordTokenizer, sentenceTokenizer
 from collections import defaultdict, Counter
 import numpy as np
 import networkx as nx
-from tqdm import tqdm
+from tqdm.auto import tqdm
 import os
 import nltk
 nltk.download("punkt")
@@ -41,17 +40,17 @@ class KeywordExtractor:
             raise TypeError("The inputs must be string or list of strings.")
         if not (self.language == "bn" or self.language == "en"):
             raise Exception("Bangla keyword extractor doesn't support this language.")
-        if self.language == "bn":
-            self.word_tokenizer = wordTokenizer()
-            self.sentence_tokenizer = sentenceTokenizer()
+        # if self.language == "bn":
+        #     self.word_tokenizer = wordTokenizer()
+        #     self.sentence_tokenizer = sentenceTokenizer()
         self.max_keywords = max_keywords
         if self.language == "bn":
             self.rake = BanglaRake(
                 stopwords=self.stopwords,
                 max_length=3,
                 include_repeated_phrases=False,
-                sentence_tokenizer=self.sentence_tokenizer,
-                word_tokenizer=self.word_tokenizer
+                # sentence_tokenizer=self.sentence_tokenizer,
+                # word_tokenizer=self.word_tokenizer
             )
         elif self.language == "en":
             self.rake = Rake(
@@ -89,7 +88,7 @@ class KeywordExtractor:
         words = self.rake._tokenize_sentence_to_words(clean_corpus)
         words = [word for word in words if not word in self.stopwords]
         unique_words = list(set(words))
-        co_occurrences = self.build_co_occurances(window_size=2, words=words)
+        co_occurrences = self.build_co_occurances(window_size=3, words=words)
         co_occurrences_matrix = self.build_co_occurrences_matrix(unique_words=unique_words, co_occurrences=co_occurrences)
         pagerank_scores = self.get_pagerank_scores(unique_words=unique_words, co_occurrences_matrix=co_occurrences_matrix)
         return pagerank_scores[:self.max_keywords]
@@ -109,7 +108,7 @@ class KeywordExtractor:
         co_matrix = np.zeros((len(unique_words), len(unique_words)), dtype=int)
 
         word_index = {word: idx for idx, word in enumerate(unique_words)}
-        for word, neighbors in tqdm(co_occurrences.items(), total = len(co_occurrences)):
+        for word, neighbors in tqdm(co_occurrences.items(), total = len(co_occurrences),disable=True):
             for neighbor, count in neighbors.items():
                 co_matrix[word_index[word]][word_index[neighbor]] = count
         return co_matrix
@@ -118,7 +117,7 @@ class KeywordExtractor:
         G = nx.Graph()
         for word in unique_words:
             G.add_node(word)
-        for i in tqdm(range(len(unique_words)), total = len(unique_words)): 
+        for i in tqdm(range(len(unique_words)), total = len(unique_words),disable=True): 
             for j in range(len(unique_words)): 
                 if co_occurrences_matrix[i][j]>0:
                     G.add_edge(unique_words[i], unique_words[j], weight = co_occurrences_matrix[i][j])
