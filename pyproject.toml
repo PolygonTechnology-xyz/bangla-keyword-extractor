@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bangla_keyword_extractor"
-version = "0.0.18"
+version = "0.0.19"
 authors = [
   { name="Kabin Hasan", email="kanchon@polygontech.xyz" },
 ]
@@ -18,8 +18,10 @@ classifiers = [
 ]
 
 dependencies = [
+    "nltk==3.8.1",
     "rake-nltk==1.0.6",
-    "tqdm==4.66.4"
+    "tqdm==4.66.4",
+    "networkx==3.0rc1"
 ]
 
 [project.urls]

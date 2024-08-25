@@ -1,2 +1,4 @@
 rake-nltk==1.0.6
 tqdm==4.66.4
+networkx==3.0rc1
+nltk==3.8.1
