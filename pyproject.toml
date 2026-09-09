@@ -18,8 +18,8 @@ classifiers = [
 ]
 
 dependencies = [
-    "nltk==3.8.1",
-    "rake-nltk==1.0.6",
+    # "nltk==3.8.1",
+    # "rake-nltk==1.0.6",
     "tqdm==4.66.4",
     "networkx==3.0rc1"
 ]
